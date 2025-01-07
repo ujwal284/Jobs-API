@@ -4,7 +4,7 @@ const express = require('express');
 const app = express();
 
 // connect DB
-
+const connectDB = require('./db/connect.js')
 
 // routers
 const authRouter = require('./routes/auth.js')
@@ -32,6 +32,8 @@ const port = process.env.PORT || 3000;
 
 const start = async () => {
     try {
+        await connectDB(process.env.MONGO_URL)
+        console.log(`\n MongoDB connected !!`)
         app.listen(port, () =>
             console.log(`⚙️  Server is listening on port ${port}...`)
         );
